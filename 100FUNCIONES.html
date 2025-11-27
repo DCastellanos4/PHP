@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cheat Sheet PHP - Funciones más usadas (nivel 2ºDAW)</title>
+    <style>
+        /* Monokai-inspired theme */
+        :root {
+            --bg: #272822;
+            /* background */
+            --text: #f8f8f2;
+            /* foreground */
+            --comment: #75715e;
+            --accent1: #a6e22e;
+            /* green */
+            --accent2: #fd971f;
+            /* orange */
+            --accent3: #66d9ef;
+            /* cyan */
+            --accent4: #f92672;
+            /* pink */
+            --panel: #3e3d32;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Inter, Segoe UI, Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 28px auto;
+            padding: 24px;
+            border-radius: 8px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.6)
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+            color: var(--accent3)
+        }
+
+        p.lead {
+            margin-top: 0;
+            color: var(--comment)
+        }
+
+        nav.chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 16px 0
+        }
+
+        .chip {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--panel);
+            color: var(--text);
+            font-size: 13px
+        }
+
+        section {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.12)
+        }
+
+        section>h2 {
+            margin: 0 0 8px;
+            color: var(--accent1);
+            font-size: 18px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 12px;
+            align-items: start
+        }
+
+        .card {
+            padding: 12px;
+            border-radius: 6px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.06));
+        }
+
+        pre {
+            background: #1e1f1a;
+            padding: 12px;
+            border-radius: 6px;
+            overflow: auto;
+            color: var(--text);
+            font-size: 13px
+        }
+
+        code.sig {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #1b1c17;
+            color: var(--accent2);
+            font-weight: 600
+        }
+
+        ul.funcs {
+            list-style: none;
+            padding: 0;
+            margin: 6px 0 0
+        }
+
+        ul.funcs li {
+            margin: 8px 0;
+            padding: 8px;
+            border-left: 3px solid rgba(255, 255, 255, 0.03)
+        }
+
+        .fn-name {
+            font-family: monospace;
+            color: var(--accent3);
+            font-weight: 700
+        }
+
+        .fn-desc {
+            color: var(--text);
+            font-size: 13px;
+            margin-top: 6px
+        }
+
+        .example-title {
+            color: var(--accent2);
+            font-weight: 700;
+            margin-top: 10px
+        }
+
+        .out {
+            background: #0f0f0d;
+            padding: 10px;
+            border-radius: 6px;
+            color: var(--accent1);
+            font-family: monospace
+        }
+
+        footer {
+            margin-top: 18px;
+            color: var(--comment);
+            font-size: 13px
+        }
+
+        /* Responsive */
+        @media (max-width:980px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cheat Sheet: funciones PHP más usadas (nivel 2ºDAW)</h1>
+        <p class="lead">Ejemplos sencillos agrupados por áreas. Mini-descripción rápida y un snippet por función para
+            ver su uso en la práctica. Tema: VSCode Monokai.</p>
+
+        <div class="sticky-wrap">
+            <nav class="chips" id="mainMenu">
+                <!-- chips generated dynamically -->
+            </nav>
+        </div>
+
+        <!-- ARRAYS -->
+        <section id="arrays">
+            <h2>Arrays — operaciones comunes</h2>
+            <div class="grid">
+                <div class="card">
+                    <ul class="funcs">
+                        <li>
+                            <div class="fn-name">array_push()</div>
+                            <div class="fn-desc">Añade uno o más elementos al final de un array.</div>
+                            <div class="example-title">Ejemplo</div>
+                            <pre><code>// añade elementos al final
+$frutas = ['manzana','pera'];
+array_push($frutas, 'naranja');
+print_r($frutas); // ['manzana','pera','naranja']</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">array_pop()</div>
+                            <div class="fn-desc">Quita y devuelve el último elemento.</div>
+                            <div class="example-title">Ejemplo</div>
+                            <pre><code>$x = array_pop($frutas); // 'naranja'
+// $frutas => ['manzana','pera']</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">array_merge()</div>
+                            <div class="fn-desc">Concatena uno o más arrays en uno nuevo.</div>
+                            <div class="example-title">Ejemplo</div>
+                            <pre><code>$a = [1,2]; $b=[3,4];
+$c = array_merge($a,$b); // [1,2,3,4]</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">array_map()</div>
+                            <div class="fn-desc">Aplica una función a cada elemento y devuelve un array nuevo.</div>
+                            <div class="example-title">Ejemplo</div>
+                            <pre><code>$nums = [1,2,3];
+$doble = array_map(fn($n)=>$n*2, $nums); // [2,4,6]</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">array_filter()</div>
+                            <div class="fn-desc">Filtra elementos según una función booleana.</div>
+                            <div class="example-title">Ejemplo</div>
+                            <pre><code>$pares = array_filter([1,2,3,4], fn($n)=> $n%2===0); // [2,4]</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">array_keys() / array_values()</div>
+                            <div class="fn-desc">Devuelve las claves o los valores de un array asociativo.</div>
+                            <div class="example-title">Ejemplo</div>
+                            <pre><code>$u = ['a'=>1,'b'=>2];
+$k = array_keys($u); // ['a','b']
+$v = array_values($u); // [1,2]</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">array_slice()</div>
+                            <div class="fn-desc">Extrae una porción de array.</div>
+                            <div class="example-title">Ejemplo</div>
+                            <pre><code>$nums = [10,20,30,40];
+print_r(array_slice($nums,1,2)); // [20,30]</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">sort() / rsort()</div>
+                            <div class="fn-desc">Ordena un array (ascendente/descendente).</div>
+                            <div class="example-title">Ejemplo</div>
+                            <pre><code>$n=[3,1,2]; sort($n); // [1,2,3]
+rsort($n); // [3,2,1]</code></pre>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent4);margin-top:0">Salida rápida</h3>
+                    <div class="out">// Observa los resultados en un entorno PHP real (CLI o servidor)</div>
+                    <div class="out">// USAMOS $_SERVER['http_host'] para las rutas de las  cookies
+                    </div>
+                    <p style="color:var(--comment);font-size:13px;margin-top:8px">Estos snippets son intencionadamente
+                        compactos para que los copies y pruebes en un entorno de prácticas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRINGS -->
+        <section id="strings">
+            <h2>Strings — manipulación básica</h2>
+            <div class="grid">
+                <div class="card">
+                    <ul class="funcs">
+                        <li>
+                            <div class="fn-name">strlen()</div>
+                            <div class="fn-desc">Devuelve la longitud de un string (bytes).</div>
+                            <pre><code>strlen('hola'); // 4</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">strpos()</div>
+                            <div class="fn-desc">Busca la posición de la primera ocurrencia.</div>
+                            <pre><code>strpos('hola mundo','mundo'); // 5</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">substr()</div>
+                            <div class="fn-desc">Extrae una parte del string.</div>
+                            <pre><code>substr('abcdef',1,3); // 'bcd'</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">str_replace()</div>
+                            <div class="fn-desc">Sustituye texto (no usa regex).</div>
+                            <pre><code>str_replace('mundo','PHP','hola mundo'); // 'hola PHP'</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">explode() / implode()</div>
+                            <div class="fn-desc">Explode: convertir string a array. Implode: unir array a string.</div>
+                            <pre><code>$parts = explode(',', 'a,b,c'); // ['a','b','c']
+implode('-', $parts); // 'a-b-c'</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">trim()</div>
+                            <div class="fn-desc">Quita espacios (inicio/fin).</div>
+                            <pre><code>trim('  hola  '); // 'hola'</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">strtolower() / strtoupper()</div>
+                            <div class="fn-desc">Convierte a minúsculas / mayúsculas.</div>
+                            <pre><code>strtoupper('php'); // 'PHP'
+strtolower('PHP'); // 'php'</code></pre>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent4);margin-top:0">Consejos rápidos</h3>
+                    <p style="color:var(--comment);font-size:13px">Para UTF-8 usa las funciones multibyte (mb_strlen,
+                        mb_substr) — fuera del alcance actual pero importante en aplicaciones reales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FECHAS -->
+        <section id="fechas">
+            <h2>Fechas y tiempo</h2>
+            <div class="grid">
+                <div class="card">
+                    <ul class="funcs">
+                        <li>
+                            <div class="fn-name">date()</div>
+                            <div class="fn-desc">Formatea la fecha/hora actual según una máscara.</div>
+                            <pre><code>date('Y-m-d H:i:s'); // '2025-11-25 14:23:00' (ejemplo)</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">time()</div>
+                            <div class="fn-desc">Timestamp Unix actual (segundos desde 1970).</div>
+                            <pre><code>time(); // 169... (numero entero)</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">strtotime()</div>
+                            <div class="fn-desc">Convierte string legible a timestamp.</div>
+                            <pre><code>strtotime('next Monday'); // timestamp</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">date_default_timezone_set()</div>
+                            <div class="fn-desc">Establece la zona horaria por defecto.</div>
+                            <pre><code>date_default_timezone_set('Europe/Madrid');</code></pre>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent4);margin-top:0">Atención</h3>
+                    <p style="color:var(--comment);font-size:13px">Siempre fija la zona horaria en aplicaciones de
+                        servidor para evitar bugs con fechas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FICHEROS -->
+        <section id="ficheros">
+            <h2>Ficheros y directorios</h2>
+            <div class="grid">
+                <div class="card">
+                    <ul class="funcs">
+                        <li>
+                            <div class="fn-name">file_get_contents()</div>
+                            <div class="fn-desc">Lee todo el contenido de un fichero a un string (rápido y común).</div>
+                            <pre><code>$data = file_get_contents('datos.txt');
+echo $data;</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">file_put_contents()</div>
+                            <div class="fn-desc">Escribe un string en un fichero (crea/reescribe).</div>
+                            <pre><code>file_put_contents('salida.txt', "Hola\n");</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">fopen() / fclose()</div>
+                            <div class="fn-desc">Apertura y cierre de fichero para lectura/escritura (modo detallado).
+                            </div>
+                            <pre><code>$h = fopen('datos.txt','r');
+$line = fgets($h);
+fclose($h);
+echo $line;</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">fwrite() / fread()</div>
+                            <div class="fn-desc">Escribir/leer usando manejadores (más control).</div>
+                            <pre><code>$w = fopen('out.txt','w');
+fwrite($w, 'texto');
+fclose($w);</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">unlink()</div>
+                            <div class="fn-desc">Elimina un fichero del sistema.</div>
+                            <pre><code>unlink('viejo.txt');</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">copy() / rename()</div>
+                            <div class="fn-desc">Copiar o renombrar (mover) ficheros.</div>
+                            <pre><code>copy('a.txt','b.txt');
+rename('b.txt','nuevo.txt');</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">file_exists() / is_dir()</div>
+                            <div class="fn-desc">Comprobar existencia de fichero o directorio.</div>
+                            <pre><code>if (file_exists('datos.txt')){ /* ... */ }
+if (is_dir('backup')){ /* ... */ }</code></pre>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent4);margin-top:0">Nota de seguridad</h3>
+                    <p style="color:var(--comment);font-size:13px">Nunca uses datos sin validar en rutas de fichero
+                        (path traversal). En servidores, vigila permisos y ownership.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALIDACIÓN -->
+        <section id="validacion">
+            <h2>Validación y tipos</h2>
+            <div class="grid">
+                <div class="card">
+                    <ul class="funcs">
+                        <li>
+                            <div class="fn-name">isset() / empty()</div>
+                            <div class="fn-desc">isset: existe y no es null. empty: vacío (0,'' , null, false, array()).
+                            </div>
+                            <pre><code>if (isset($_POST['user'])) { /* existe */ }
+if (empty($var)) { /* vacío */ }</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">is_array() / is_string()</div>
+                            <div class="fn-desc">Comprobar el tipo de una variable.</div>
+                            <pre><code>if (is_array($a)) { /* ... */ }
+if (is_string($s)) { /* ... */ }</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">filter_var()</div>
+                            <div class="fn-desc">Filtrar/validar valores (emails, ints, etc.).</div>
+                            <pre><code>filter_var('x@a.com', FILTER_VALIDATE_EMAIL); // email válido o false</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">preg_match()</div>
+                            <div class="fn-desc">Busqueda/validación con expresiones regulares.</div>
+                            <pre><code>preg_match('/^\d{4}$/', '2025'); // 1 (coincide)</code></pre>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent4);margin-top:0">Buenas prácticas</h3>
+                    <p style="color:var(--comment);font-size:13px">Escapa siempre salida HTML con <code
+                            class="sig">htmlspecialchars()</code> para evitar XSS.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATEMÁTICAS -->
+        <section id="math">
+            <h2>Funciones matemáticas</h2>
+            <div class="grid">
+                <div class="card">
+                    <ul class="funcs">
+                        <li>
+                            <div class="fn-name">abs()</div>
+                            <div class="fn-desc">Valor absoluto.</div>
+                            <pre><code>abs(-5); // 5</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">round() / floor() / ceil()</div>
+                            <div class="fn-desc">Redondeos: normal, hacia abajo, hacia arriba.</div>
+                            <pre><code>round(3.6); // 4
+floor(3.6); // 3
+ceil(3.1); // 4</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">pow() / sqrt()</div>
+                            <div class="fn-desc">Potencia y raíz cuadrada.</div>
+                            <pre><code>pow(2,3); // 8
+sqrt(9); // 3</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">rand() / mt_rand()</div>
+                            <div class="fn-desc">Generación de números aleatorios (mt_rand más moderna).</div>
+                            <pre><code>rand(1,6); // 1..6
+mt_rand(1,100);</code></pre>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent4);margin-top:0">Uso típico</h3>
+                    <p style="color:var(--comment);font-size:13px">Usar <code class="sig">mt_rand</code> para mejores
+                        prestaciones cuando necesites muchos números aleatorios.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SESIONES Y COOKIES -->
+        <section id="sesiones">
+            <h2>Sesiones y cookies (básico)</h2>
+            <div class="grid">
+                <div class="card">
+                    <ul class="funcs">
+                        <li>
+                            <div class="fn-name">session_start()</div>
+                            <div class="fn-desc">Inicia/recupera la sesión del usuario (debe llamarse antes de salida).
+                            </div>
+                            <pre><code>session_start();
+$_SESSION['user']='pepe';</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">session_destroy()</div>
+                            <div class="fn-desc">Elimina datos de la sesión (cierre de sesión).</div>
+                            <pre><code>session_start();
+session_destroy();</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">setcookie()</div>
+                            <div class="fn-desc">Envía una cookie al cliente (antes de cualquier salida).</div>
+                            <pre><code>setcookie('pref','dark', time()+3600*24*30);</code></pre>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent4);margin-top:0">Recordatorio</h3>
+                    <p style="color:var(--comment);font-size:13px">Cookies y sesiones implican privacidad; no guardes
+                        contraseñas en texto plano.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FUNCIONES ÚTILES -->
+        <section id="utiles">
+            <h2>Funciones útiles — misc</h2>
+            <div class="grid">
+                <div class="card">
+                    <ul class="funcs">
+                        <li>
+                            <div class="fn-name">echo / print</div>
+                            <div class="fn-desc">Salida simple de texto (echo es más habitual).</div>
+                            <pre><code>echo "Hola"; print " Mundo";</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">var_dump() / print_r()</div>
+                            <div class="fn-desc">Mostrar contenido detallado de variables (debug).</div>
+                            <pre><code>$a = ['x'=>1]; var_dump($a); print_r($a);</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">require / include</div>
+                            <div class="fn-desc">Incluir archivos PHP (require detiene si falta, include emite warning).
+                            </div>
+                            <pre><code>require 'config.php'; include 'menu.php';</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">http_build_query()</div>
+                            <div class="fn-desc">Construye una cadena query a partir de un array (útil para URLs).</div>
+                            <pre><code>http_build_query(['a'=>1,'b'=>2]); // 'a=1&b=2'</code></pre>
+                        </li>
+
+                        <li>
+                            <div class="fn-name">parse_url()</div>
+                            <div class="fn-desc">Analiza una URL en sus componentes.</div>
+                            <pre><code>parse_url('https://ejemplo.com?a=1');</code></pre>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent4);margin-top:0">Aplicaciones</h3>
+                    <p style="color:var(--comment);font-size:13px">Estas funciones aparecen a menudo en pequeñas
+                        utilidades, scripts y prototipos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FUNCIONES PROPIAS -->
+        <section id="propias">
+            <h2>Funciones propias — ejemplos prácticos (ficheros)</h2>
+            <div class="card">
+                <p class="fn-desc">Implementaciones sencillas con funciones que puedes usar o ampliar.</p>
+
+                <h3 class="example-title">1) Leer fichero de forma primitiva (fila por fila)</h3>
+                <pre><code>function leer_lineas($ruta){
+  $res = [];
+  $h = fopen($ruta, 'r');
+  if (!$h) return false;
+  while (!feof($h)){
+    $line = fgets($h);
+    if ($line !== false) $res[] = rtrim($line, "\r\n");
+  }
+  fclose($h);
+  return $res; // array de líneas
+}
+
+// uso: $lineas = leer_lineas('datos.txt');</code></pre>
+
+                <h3 class="example-title">2) Buscar coincidencias y devolver línea completa</h3>
+                <pre><code>function buscar_en_fichero($ruta, $patron){
+  $h = fopen($ruta,'r');
+  if (!$h) return false;
+  $out = [];
+  while(!feof($h)){
+    $l = fgets($h);
+    if ($l !== false && strpos($l, $patron) !== false){
+      $out[] = rtrim($l, "\r\n");
+    }
+  }
+  fclose($h);
+  return $out; // todas las líneas que contienen $patron
+}
+
+// uso: buscar_en_fichero('datos.txt','ERROR');</code></pre>
+
+                <h3 class="example-title">3) Insertar una línea en posición (primitivo)</h3>
+                <pre><code>function insertar_linea($ruta, $nueva, $pos=null){
+  $lineas = file($ruta, FILE_IGNORE_NEW_LINES);
+  if ($pos === null) { $lineas[] = $nueva; }
+  else { array_splice($lineas, $pos, 0, [$nueva]); }
+  file_put_contents($ruta, implode("\n", $lineas) . "\n");
+  return true;
+}
+
+// uso: insertar_linea('datos.txt', 'nueva linea', 2);</code></pre>
+
+                <h3 class="example-title">Funciones propias extra (no ficheros)</h3>
+                <pre><code>// ejemplo: generar slug
+function slugify($s){
+  $s = trim(strtolower($s));
+  $s = preg_replace('/[^a-z0-9]+/','-', $s);
+  $s = trim($s,'-');
+  return $s;
+}
+// uso: slugify('Hola Mundo!'); // 'hola-mundo'</code></pre>
+
+            </div>
+        </section>
+
+        <footer>
+            <p>Archivo generado como guía práctica. Copia los snippets en <code class="sig">.php</code> y pruébalos en
+                un servidor local (XAMPP / PHP built-in).</p>
+        </footer>
+
+    </div>
+    <script>
+        // JS para hacer el menu funcional: crea chips a partir de secciones y añade smooth scroll + highlight
+        (function () {
+            const sections = Array.from(document.querySelectorAll('section'));
+            const menu = document.getElementById('mainMenu');
+            const toggle = document.getElementById('menuToggle');
+
+            // crea chips
+            sections.forEach(sec => {
+                const id = sec.id;
+                const titleEl = sec.querySelector('h2');
+                const title = titleEl ? titleEl.textContent.trim() : id;
+                const btn = document.createElement('button');
+                btn.className = 'chip';
+                btn.textContent = title;
+                btn.dataset.target = id;
+                btn.addEventListener('click', (e) => {
+                    // cerrar menu móvil si está abierto
+                    if (menu.classList.contains('open') && window.innerWidth <= 980) menu.classList.remove('open');
+                    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+                menu.appendChild(btn);
+            });
+
+            // toggle móvil
+            toggle.addEventListener('click', () => {
+                menu.classList.toggle('open');
+            });
+
+            // highlight active item while scrolling (throttle)
+            let ticking = false;
+            function onScroll() {
+                if (ticking) return;
+                window.requestAnimationFrame(() => {
+                    const fromTop = window.scrollY + 80; // offset para cabecera
+                    let current = sections[0];
+                    for (let sec of sections) {
+                        if (sec.offsetTop <= fromTop) current = sec;
+                    }
+                    // actualizar chips
+                    Array.from(menu.children).forEach(ch => ch.classList.toggle('active', ch.dataset.target === current.id));
+                    ticking = false;
+                });
+                ticking = true;
+            }
+            document.addEventListener('scroll', onScroll, { passive: true });
+
+            // inicializar highlight
+            onScroll();
+
+            // accesibilidad: permitir navegación con teclado (Enter/Space)
+            menu.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    const el = document.activeElement;
+                    if (el && el.classList.contains('chip') && el.dataset.target) {
+                        document.getElementById(el.dataset.target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+
+            // make chips focusable
+            Array.from(menu.children).forEach(ch => ch.setAttribute('tabindex', '0'));
+
+        })();
+    </script>
+</body>
+
+</html>

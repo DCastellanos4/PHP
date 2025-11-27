@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con CAPTCHA</title>
+</head>
+<body>
+    <form action="captchat.php" method="post">
+        <p>Introduce el texto de la imagen:</p>
+        <img src="captchat.php?texto=hola" alt="Captcha">
+        <br>
+        <input type="text" name="captcha" required>
+        <br><br>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

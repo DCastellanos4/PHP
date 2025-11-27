@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>📝 Apuntes PHP - Preparación para Examen 📝</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+.contenedor {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+.numero-tema {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4a90e2;
+  margin-bottom: 10px;
+}
+
+.titulo-apartado {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  border-left: 5px solid #4a90e2;
+  padding-left: 10px;
+}
+
+.resumen {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+.codigo {
+  background: #1e1e1e;
+  color: #dcdcdc;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: Consolas, monospace;
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.contenedor-apuntes {
+  background: #f7faff;
+  border: 1px solid #cce0ff;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.contenedor-apuntes h4 {
+  margin-top: 0;
+  color: #2a5dab;
+}
+
+.definicion {
+  background: #fffbe6;
+  border-left: 5px solid #ffc107;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.definicion strong {
+  color: #d48806;
+}
+
+.tabla-ejemplo {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95rem;
+}
+
+.tabla-ejemplo thead {
+  background-color: #e6f0ff;
+  color: #2a5dab;
+}
+
+.tabla-ejemplo th,
+.tabla-ejemplo td {
+  border: 1px solid #cce0ff;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.tabla-ejemplo tbody tr:nth-child(even) {
+  background-color: #f7faff;
+}
+
+.menu-bloques {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.menu-bloques a {
+  text-decoration: none;
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.menu-bloques a:hover {
+  background-color: #357abd;
+}
+</style>
+</head>
+<body>
+<div class="contenedor">
+
+<h1 style="text-align:center; color:#4a4a8c;">📝 Apuntes PHP - Preparación para Examen 📝</h1>
+
+<details open>
+<summary class="numero-tema">0️⃣ Toolbox Rápido - Funciones Avanzadas</summary>
+
+<div class="contenedor-apuntes">
+
+<h4 class="titulo-apartado">📅 Manipulación de Fechas</h4>
+<div class="definicion"><strong>Crear y modificar fechas:</strong> usar DateTime, DateInterval y modify()</div>
+<div class="codigo">
+function ajustarFecha($fechaStr, $intervaloStr){
+    $fecha = new DateTime($fechaStr);
+    $fecha->add(new DateInterval($intervaloStr));
+    return $fecha->format("Y-m-d H:i:s");
+}
+// Uso
+echo ajustarFecha("2025-11-19 12:00", "P3D");
+echo ajustarFecha("2025-11-19 12:00", "PT4H");
+</div>
+
+<h4 class="titulo-apartado">📂 Manipulación de Ficheros</h4>
+<div class="definicion"><strong>Leer fichero y generar &lt;option&gt;:</strong> línea por línea con explode</div>
+<div class="codigo">
+function leerFicheroOpciones($archivo){
+    $permiso = fopen($archivo, "r"); 
+    if (!$permiso) {
+        die("No se ha podido leer el fichero");
+    }
+
+    while (($linea = fgets($permiso)) != false) {
+        $contenido = explode("|", $linea);
+        foreach ($contenido as $value) {
+            echo "&lt;option value='{$value}'&gt;{$value}&lt;/option&gt;";
+        }
+    }
+
+    fclose($permiso);
+}
+</div>
+
+<div class="definicion"><strong>Escribir varias líneas:</strong> append y control de errores</div>
+<div class="codigo">
+function escribirLineas($archivo, $lineas){
+    $f = fopen($archivo, "a");
+    if (!$f) die("No se puede abrir el fichero");
+    foreach($lineas as $linea){
+        fwrite($f, $linea . "\n");
+    }
+    fclose($f);
+}
+// Uso
+escribirLineas("registro.txt", ["Linea1","Linea2"]);
+</div>
+
+<h4 class="titulo-apartado">🖊️ Formulario Básico HTML</h4>
+<div class="codigo">
+function imprimirFormulario(){
+    echo '&lt;form method="post" style="border:1px solid #ccc; padding:10px; width:300px;"&gt;
+        &lt;label&gt;Nombre:&lt;/label&gt;
+        &lt;input type="text" name="nombre" style="width:100%;"&gt;&lt;br&gt;&lt;br&gt;
+        &lt;label&gt;Edad:&lt;/label&gt;
+        &lt;input type="number" name="edad" style="width:100%;"&gt;&lt;br&gt;&lt;br&gt;
+        &lt;input type="submit" value="Enviar" style="background-color:#4a90e2; color:white; padding:5px 10px; border:none; cursor:pointer;"&gt;
+    &lt;/form&gt;';
+}
+imprimirFormulario();
+</div>
+
+<h4 class="titulo-apartado">⚡ Funciones Útiles Propias</h4>
+<div class="codigo">
+function mayusculas($texto){ return strtoupper($texto); }
+function minusculas($texto){ return strtolower($texto); }
+function invertirCadena($texto){ return strrev($texto); }
+function esPar($num){ return $num % 2 == 0; }
+function esImpar($num){ return $num % 2 != 0; }
+function formatoFecha($fechaStr, $formato="d/m/Y"){
+    $fecha = new DateTime($fechaStr);
+    return $fecha->format($formato);
+}
+</div>
+
+<h4 class="titulo-apartado">🗄️ Mini CRUD Sencillo</h4>
+<div class="definicion"><strong>CRUD básico con arrays:</strong> agregar, leer, actualizar y eliminar</div>
+<div class="codigo">
+$datos = [];
+
+function crear($item){ global $datos; $datos[] = $item; }
+function leer(){ global $datos; return $datos; }
+function actualizar($indice, $item){ global $datos; if(isset($datos[$indice])) $datos[$indice] = $item; }
+function eliminar($indice){ global $datos; if(isset($datos[$indice])) unset($datos[$indice]); }
+
+// Uso
+crear(["nombre"=>"Juan","edad"=>25]);
+actualizar(0, ["nombre"=>"Juan","edad"=>26]);
+print_r(leer());
+eliminar(0);
+</div>
+
+</div>
+</details>
+
+<details>
+<summary class="numero-tema">1️⃣ Funciones Útiles Adicionales y Debugging</summary>
+<div class="contenedor-apuntes">
+
+<h4 class="titulo-apartado">Debugging y Estado</h4>
+<div class="codigo">
+var_dump($edad);
+print_r($colores);
+isset($variable);
+empty($variable);
+die("Mensaje de error");
+</div>
+
+<h4 class="titulo-apartado">Manipulación de Cadenas</h4>
+<div class="codigo">
+trim($texto);
+nl2br($texto);
+htmlspecialchars($input);
+</div>
+
+</div>
+</details>
+
+<details>
+<summary class="numero-tema">2️⃣ Fundamentos de PHP y Estructuras de Control</summary>
+<div class="contenedor-apuntes">
+
+<h4 class="titulo-apartado">Sintaxis y Tipos de Datos</h4>
+<div class="codigo">
+$nombre = "Juan";  // string
+$edad = 25;        // int
+$saludo = "Hola " . $nombre; // concatenación
+</div>
+
+<h4 class="titulo-apartado">Estructuras Condicionales y Bucles</h4>
+<div class="codigo">
+if($edad >= 18){ ... } else { ... }
+switch($color){ case "rojo": ...; break; }
+for($i=0;$i<5;$i++){ ... }
+while($i<5){ ... }
+</div>
+
+<h4 class="titulo-apartado">Arrays</h4>
+<div class="codigo">
+$array = [1,2,3];
+count($array);
+array_push($array,4);
+array_pop($array);
+implode(",", $array);
+explode(",", $cadena);
+</div>
+
+<h4 class="titulo-apartado">Funciones y Ámbito</h4>
+<div class="codigo">
+function ejemplo(){ 
+    global $x; 
+    static $c=0; 
+    $c++; 
+}
+</div>
+
+<h4 class="titulo-apartado">Expresiones Regulares</h4>
+<div class="codigo">
+. ^ $ + * ? [a-z] ( )
+</div>
+
+</div>
+</details>
+
+<details>
+<summary class="numero-tema">3️⃣ Formularios y Protocolo HTTP</summary>
+<div class="contenedor-apuntes">
+
+<h4 class="titulo-apartado">HTTP</h4>
+<div class="codigo">
+Método GET: datos en URL
+Método POST: datos en cuerpo
+$_GET, $_POST, $_REQUEST
+</div>
+
+<h4 class="titulo-apartado">Subida de Ficheros</h4>
+<div class="codigo">
+ENCTYPE multipart/form-data
+$_FILES['archivo']['name'], ['tmp_name'], ['size'], ['error']
+is_uploaded_file(...), move_uploaded_file(...)
+</div>
+
+<h4 class="titulo-apartado">Cabeceras HTTP</h4>
+<div class="codigo">
+header("Location: index.php");
+header("Content-Disposition: attachment; filename='archivo.txt'");
+</div>
+
+</div>
+</details>
+
+<details>
+<summary class="numero-tema">4️⃣ Manejo de Fecha y Hora</summary>
+<div class="contenedor-apuntes">
+
+<h4 class="titulo-apartado">Clase DateTime</h4>
+<div class="codigo">
+$fecha = new DateTime("2025-11-19", new DateTimeZone("Europe/Madrid"));
+$fecha->format("Y-m-d H:i:s");
+$fecha->add(new DateInterval("P10D"));
+$fecha->sub(new DateInterval("PT2S"));
+$fecha->modify("+1 day");
+$diff = $fecha1->diff($fecha2);
+</div>
+
+<h4 class="titulo-apartado">DatePeriod y Asociados</h4>
+<div class="codigo">
+DateInterval, DateTimeZone, DatePeriod
+</div>
+
+</div>
+</details>
+
+<details>
+<summary class="numero-tema">5️⃣ Manejo de Ficheros y Directorios</summary>
+<div class="contenedor-apuntes">
+
+<h4 class="titulo-apartado">Fases de Operación</h4>
+<div class="codigo">
+Apertura: fopen("archivo.txt", "r/w/a")
+Procesamiento: fgets, fwrite, feof, file_get_contents
+Cierre: fclose()
+</div>
+
+<h4 class="titulo-apartado">Otras Operaciones</h4>
+<div class="codigo">
+unlink("archivo.txt");
+filesize("archivo.txt");
+exif_imagetype("imagen.jpg");
+</div>
+
+<h4 class="titulo-apartado">Manejo de Directorios</h4>
+<div class="codigo">
+opendir(), readdir(), closedir(), mkdir()
+</div>
+
+<h4 class="titulo-apartado">Inclusión de Ficheros</h4>
+<div class="codigo">
+require, include, require_once, include_once
+</div>
+
+</div>
+</details>
+
+</div>
+</body>
+</html>
